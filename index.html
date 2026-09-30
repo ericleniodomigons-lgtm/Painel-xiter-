@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URIEL XITER — Painel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 20%,#252525,#090909 45%,#000);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+
+.panel{
+  width:min(900px,100%);
+  background:#080808;
+  border:2px solid #ff1010;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:
+    0 0 15px #ff0000,
+    0 0 50px rgba(255,0,0,.25);
+}
+
+.header{
+  height:85px;
+  background:linear-gradient(90deg,#ff0000,#b40000,#ff0000);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:900;
+  font-style:italic;
+  text-shadow:3px 3px #000;
+}
+
+.logo span{
+  color:#111;
+  text-shadow:2px 2px white;
+}
+
+.version{
+  font-size:14px;
+  font-weight:bold;
+}
+
+.close{
+  font-size:32px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.close:hover{
+  transform:rotate(90deg);
+  color:#000;
+}
+
+.tabs{
+  display:flex;
+  gap:5px;
+  padding:10px;
+  border-bottom:2px solid #e60000;
+}
+
+.tab{
+  flex:1;
+  padding:14px 8px;
+  background:#111;
+  color:white;
+  border:1px solid #333;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.tab.active,
+.tab:hover{
+  background:#ed0808;
+  border-color:#ff3333;
+  box-shadow:0 0 12px #f00;
+}
+
+.content{
+  padding:20px;
+}
+
+.option{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 8px;
+  border-bottom:1px solid #333;
+}
+
+.info{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.icon{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#170000;
+  border:2px solid #ff1717;
+  color:#ff1717;
+  font-size:22px;
+}
+
+.title{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.subtitle{
+  color:#999;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.switch{
+  width:55px;
+  height:29px;
+  background:#222;
+  border:1px solid #555;
+  border-radius:30px;
+  cursor:pointer;
+  position:relative;
+}
+
+.switch::after{
+  content:"";
+  width:21px;
+  height:21px;
+  position:absolute;
+  top:3px;
+  left:4px;
+  border-radius:50%;
+  background:#ddd;
+  transition:.25s;
+}
+
+.switch.on{
+  background:#ed0808;
+  border-color:#ff3333;
+  box-shadow:0 0 10px #f00;
+}
+
+.switch.on::after{
+  left:28px;
+  background:white;
+}
+
+.separator{
+  height:2px;
+  background:#ed0808;
+  margin:10px 0;
+  box-shadow:0 0 8px red;
+}
+
+.fov-box{
+  padding:20px 8px;
+}
+
+.fov-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.fov-value{
+  color:#ff1b1b;
+  font-size:24px;
+  font-weight:bold;
+}
+
+input[type=range]{
+  width:100%;
+  accent-color:#ff1010;
+  cursor:pointer;
+}
+
+select{
+  background:#111;
+  color:white;
+  border:1px solid #f00;
+  border-radius:8px;
+  padding:10px 15px;
+  outline:none;
+}
+
+.side-info{
+  margin-top:15px;
+  padding:18px;
+  border:1px solid #330000;
+  background:#0d0d0d;
+  border-radius:12px;
+}
+
+.side-info h2{
+  color:#ff1010;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.feature{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:9px;
+  color:#ddd;
+}
+
+.feature b{
+  color:#ff1717;
+}
+
+.status{
+  text-align:center;
+  margin-top:15px;
+  padding:10px;
+  border-radius:8px;
+  background:#111;
+  color:#aaa;
+  font-size:13px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:600px){
+  .header{
+    height:70px;
+    padding:0 12px;
+  }
+
+  .logo{
+    font-size:21px;
+  }
+
+  .version{
+    display:none;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .title{
+    font-size:15px;
+  }
+
+  .subtitle{
+    font-size:10px;
+  }
+
+  .tab{
+    font-size:13px;
+    padding:11px 4px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+  <div class="header">
+    <div class="logo">
+      URIEL <span>XITER</span>
+    </div>
+
+    <div class="version">
+      ANDROID 1.108.X
+    </div>
+
+    <div class="close" onclick="fecharPainel()">×</div>
+  </div>
+
+  <div class="tabs">
+
+    <button class="tab active" onclick="abrirAba('aim',this)">
+      🎯 Aimbot
+    </button>
+
+    <button class="tab" onclick="abrirAba('esp',this)">
+      👁 ESP
+    </button>
+
+    <button class="tab" onclick="abrirAba('info',this)">
+      ▣ Info
+    </button>
+
+  </div>
+
+  <!-- ABA AIMBOT -->
+  <div id="aim" class="content">
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">🎯</div>
+        <div>
+          <div class="title">Ativar Aimbot</div>
+          <div class="subtitle">Simulação de mira automática</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'Aimbot')"></div>
+    </div>
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">✦</div>
+        <div>
+          <div class="title">Bala mágica</div>
+          <div class="subtitle">Opção visual de simulação</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'Bala mágica')"></div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">♙</div>
+        <div>
+          <div class="title">Cabeça + Seta</div>
+          <div class="subtitle">Indicador visual de alvo</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'Cabeça + Seta')"></div>
+    </div>
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">◎</div>
+        <div>
+          <div class="title">Exibir Círculo do FOV</div>
+          <div class="subtitle">Mostra o campo de visão no painel</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'FOV')"></div>
+    </div>
+
+    <div class="fov-box">
+
+      <div class="fov-top">
+        <strong>FOV</strong>
+        <span class="fov-value" id="fovValue">52</span>
+        <strong>Regular FOV</strong>
+      </div>
+
+      <input
+        type="range"
+        min="1"
+        max="180"
+        value="52"
+        oninput="alterarFov(this.value)"
+      >
+
+    </div>
+
+    <div class="option">
+
+      <div class="info">
+        <div class="icon">♙</div>
+
+        <div>
+          <div class="title">Target</div>
+          <div class="subtitle">Área selecionada</div>
+        </div>
+      </div>
+
+      <select onchange="targetSelecionado(this.value)">
+        <option>Cabeça</option>
+        <option>Peito</option>
+        <option>Corpo</option>
+        <option>Automático</option>
+      </select>
+
+    </div>
+
+    <div class="status" id="status">
+      Painel carregado — modo simulação
+    </div>
+
+  </div>
+
+
+  <!-- ABA ESP -->
+  <div id="esp" class="content hidden">
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">👁</div>
+        <div>
+          <div class="title">ESP Visual</div>
+          <div class="subtitle">Simulação de elementos ESP</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'ESP')"></div>
+    </div>
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">□</div>
+        <div>
+          <div class="title">Caixa do alvo</div>
+          <div class="subtitle">Representação visual</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'Caixa')"></div>
+    </div>
+
+    <div class="option">
+      <div class="info">
+        <div class="icon">♥</div>
+        <div>
+          <div class="title">Barra de vida</div>
+          <div class="subtitle">Indicador demonstrativo</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="toggle(this,'Vida')"></div>
+    </div>
+
+  </div>
+
+
+  <!-- ABA INFO -->
+  <div id="info" class="content hidden">
+
+    <div class="side-info">
+
+      <h2>⚡ URIEL XITER</h2>
+
+      <div class="feature">
+        🎯 <span><b>Mira:</b> painel de treino visual</span>
+      </div>
+
+      <div class="feature">
+        👁 <span><b>ESP:</b> interface demonstrativa</span>
+      </div>
+
+      <div class="feature">
+        ⚙️ <span><b>FOV:</b> controle ajustável</span>
+      </div>
+
+      <div class="feature">
+        📱 <span><b>Android:</b> interface responsiva</span>
+      </div>
+
+      <div class="feature">
+        🔴 <span><b>Visual:</b> vermelho + preto</span>
+      </div>
+
+      <div class="status">
+        Este painel é apenas uma interface/simulador HTML.
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function toggle(element,nome){
+
+  element.classList.toggle("on");
+
+  if(element.classList.contains("on")){
+    document.getElementById("status").innerText =
+      nome + " ativado — modo simulação";
+  }else{
+    document.getElementById("status").innerText =
+      nome + " desativado";
+  }
+}
+
+
+function alterarFov(valor){
+
+  document.getElementById("fovValue").innerText = valor;
+
+  document.getElementById("status").innerText =
+    "FOV ajustado para " + valor + " — modo simulação";
+}
+
+
+function targetSelecionado(valor){
+
+  document.getElementById("status").innerText =
+    "Target selecionado: " + valor;
+}
+
+
+function abrirAba(id,botao){
+
+  document.querySelectorAll(".content")
+    .forEach(el => el.classList.add("hidden"));
+
+  document.getElementById(id)
+    .classList.remove("hidden");
+
+  document.querySelectorAll(".tab")
+    .forEach(el => el.classList.remove("active"));
+
+  botao.classList.add("active");
+}
+
+
+function fecharPainel(){
+
+  document.querySelector(".panel").style.display="none";
+
+  setTimeout(()=>{
+    alert("Painel fechado.");
+  },100);
+}
+
+</script>
+
+</body> treino de reflexo
+</html>
